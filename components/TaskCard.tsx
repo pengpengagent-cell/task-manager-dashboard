@@ -85,26 +85,26 @@ export function TaskCard({ task, isDragging }: TaskCardProps) {
               </span>
             )}
             
-            {task.metadata.estimatedDuration && (
+            {task.metadata?.estimatedDuration && (
               <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 flex items-center gap-1">
                 <Clock className="w-3 h-3" />
-                ~{task.metadata.estimatedDuration}m
+                ~{task.metadata?.estimatedDuration}m
               </span>
             )}
           </div>
           
-          {task.metadata.thoughtProcess && task.metadata.thoughtProcess.length > 0 && (
+          {task.metadata?.thoughtProcess && task.metadata.thoughtProcess.length > 0 && (
             <div className="mb-3">
               <button
                 onClick={() => setShowDetails(!showDetails)}
                 className="text-sm text-blue-600 hover:text-blue-800 font-medium"
               >
-                {showDetails ? 'Hide' : 'Show'} thought process ({task.metadata.thoughtProcess.length})
+                {showDetails ? 'Hide' : 'Show'} thought process ({task.metadata?.thoughtProcess?.length || 0})
               </button>
               
               {showDetails && (
                 <div className="mt-2 pl-4 border-l-2 border-blue-200">
-                  {task.metadata.thoughtProcess.map((thought, index) => (
+                  {task.metadata?.thoughtProcess?.map((thought, index) => (
                     <div key={index} className="text-sm text-gray-700 mb-1">
                       • {thought}
                     </div>
@@ -114,13 +114,13 @@ export function TaskCard({ task, isDragging }: TaskCardProps) {
             </div>
           )}
           
-          {task.metadata.errorDetails && (
+          {task.metadata?.errorDetails && (
             <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded">
               <div className="flex items-center gap-1 text-red-700 font-medium text-sm mb-1">
                 <AlertCircle className="w-4 h-4" />
                 Error
               </div>
-              <p className="text-red-600 text-sm">{task.metadata.errorDetails}</p>
+              <p className="text-red-600 text-sm">{task.metadata?.errorDetails}</p>
             </div>
           )}
         </div>

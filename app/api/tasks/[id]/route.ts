@@ -3,10 +3,11 @@ import { taskStore } from '@/lib/store';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const task = taskStore.getTask(params.id);
+    const { id } = await params;
+    const task = taskStore.getTask(id);
     
     if (!task) {
       return NextResponse.json(
@@ -26,11 +27,12 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
-    const updatedTask = taskStore.updateTask(params.id, body);
+    const updatedTask = taskStore.updateTask(id, body);
     
     if (!updatedTask) {
       return NextResponse.json(
@@ -50,10 +52,11 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const deleted = taskStore.deleteTask(params.id);
+    const { id } = await params;
+    const deleted = taskStore.deleteTask(id);
     
     if (!deleted) {
       return NextResponse.json(
@@ -62,7 +65,7 @@ export async function DELETE(
       );
     }
 
-    return NextResponse.json({ success: true, data: { id: params.id } });
+    return NextResponse.json({ success: true, data: { id } });
   } catch (error) {
     return NextResponse.json(
       { success: false, error: 'Failed to delete task' },

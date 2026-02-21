@@ -70,6 +70,7 @@ export default function Home() {
         ...taskData,
         status: 'pending',
         assignee: null,
+        metadata: taskData.metadata || {},
       });
       fetchData(); // Refresh data
     } catch (error) {

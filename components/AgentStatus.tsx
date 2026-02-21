@@ -11,6 +11,7 @@ import {
   Zap
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 interface AgentStatusProps {
   agent: Agent;
@@ -35,7 +36,7 @@ const statusConfig = {
   },
 };
 
-const agentIcons: Record<string, JSX.Element> = {
+const agentIcons: Record<string, React.ReactElement> = {
   main: <User className="w-6 h-6 text-purple-600" />,
   dev: <Cpu className="w-6 h-6 text-blue-600" />,
   learn: <Zap className="w-6 h-6 text-green-600" />,

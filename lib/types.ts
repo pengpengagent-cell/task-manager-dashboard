@@ -11,7 +11,7 @@ export interface Task {
   createdAt: Date;
   updatedAt: Date;
   completedAt: Date | null;
-  metadata: {
+  metadata?: {
     thoughtProcess?: string[];
     errorDetails?: string;
     estimatedDuration?: number; // in minutes
@@ -35,4 +35,33 @@ export interface TaskBin {
   taskIds: string[];
   maxCapacity: number;
   priorityThreshold: number;
+}
+
+// Skill and Agent Activity Logging
+export type SkillType = 'dev-flow' | 'audit-flow' | 'incident-triage' | 'notion-writer';
+export type AgentActivityType = 'monitor' | 'dev' | 'learn' | 'creator' | `cron:${string}`;
+
+export interface SkillLog {
+  id: string;
+  skill: SkillType;
+  trigger: string;
+  success: boolean;
+  notes?: string;
+  timestamp: Date;
+}
+
+export interface AgentLog {
+  id: string;
+  agent: AgentActivityType;
+  trigger: string;
+  durationSeconds?: number;
+  success: boolean;
+  notes?: string;
+  timestamp: Date;
+}
+
+export interface ActivityStats {
+  skillUsage: Record<string, number>;
+  agentActivity: Record<string, number>;
+  phase4Progress: Record<string, number>;
 }
